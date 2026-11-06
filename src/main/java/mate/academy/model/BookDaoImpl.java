@@ -1,4 +1,4 @@
-package mate.academy;
+package mate.academy.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import mate.academy.DataProcessingException;
+import mate.academy.dao.BookDao;
+import mate.academy.dao.ConnectionUtil;
 import mate.academy.lib.Dao;
 
 @Dao
@@ -53,7 +56,7 @@ public class BookDaoImpl implements BookDao {
                     Book book = new Book();
                     book.setTitle(resultSet.getString("title"));
                     book.setPrice(resultSet.getBigDecimal("price"));
-                    book.setId(resultSet.getLong("id"));
+                    book.setId(resultSet.getObject("id", Long.class));
 
                     return Optional.of(book);
                 }
@@ -79,7 +82,7 @@ public class BookDaoImpl implements BookDao {
                     Book book = new Book();
                     book.setTitle(resultSet.getString("title"));
                     book.setPrice(resultSet.getBigDecimal("price"));
-                    book.setId(resultSet.getLong("id"));
+                    book.setId(resultSet.getObject("id", Long.class));
                     books.add(book);
                 }
             }
